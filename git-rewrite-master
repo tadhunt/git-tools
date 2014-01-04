@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+waitforit()
+{
+	echo -n $*
+	read answer
+
+	if [ "$answer" != "y" ] ; then
+		echo "Aborted"
+	fi
+}
+
+git branch -m master master-new		# rename master on local
+git push origin master-new		# create master-new on remote
+
+waitforit "Change github default branch to 'master-new'.  Enter "y" to continue, anything else to exit"
+git push -f origin :master		# delete master on remote
+
+git branch -m master-new master		# rename master-new to master on local
+git push origin master			# create master on remote
+
+waitforit "Change github default branch back to 'master'.  Enter "y" to continue, anything else to exit"
+git push -f origin :master-new		# delete master-new on remote
+
+git pull				# make sure local master = remote master

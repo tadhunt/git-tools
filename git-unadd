@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ $# -ne 0 ] ; then
+	echo "usage: $0" 1>&2
+	echo "	un-adds all files in the repo that are staged for commit" 1>&2
+	exit 1
+fi
+
+while [ $PWD != "/" ] ; do
+	if [ -d .git ] ; then
+		break
+	fi
+	cd ..
+done
+
+if [ ! -d .git ] ; then
+	echo "not in a git repo" 1>&2
+	exit 1
+fi
+
+git status --porcelain | grep -v '^ ' | while read state file ; do
+	echo git reset HEAD $file
+	git reset HEAD $file
+done
