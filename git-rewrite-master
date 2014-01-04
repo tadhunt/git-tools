@@ -5,11 +5,12 @@ set -o nounset
 
 waitforit()
 {
-	echo -n $*
+	echo -n "$*: "
 	read answer
 
 	if [ "$answer" != "y" ] ; then
 		echo "Aborted"
+		exit 1
 	fi
 }
 
