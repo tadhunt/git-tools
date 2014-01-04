@@ -19,8 +19,8 @@ git-rewrite-master
 This takes the current local branch and makes it the new master,
 obliterating the old master entirely.
 
-CAUTION: This destroys history!
-CAUTION: This will break folks that have already cloned your remote
+* CAUTION: This destroys history!
+* CAUTION: This will break folks that have already cloned your remote
 
 git-unadd
 ---------
